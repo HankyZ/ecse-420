@@ -5,15 +5,13 @@ H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(45):
   
 H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(46): warning : conversion from a string literal to "char *" is deprecated
   
-H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(54): warning : variable "num_threads" was declared but never referenced
-  
 H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(45): warning : conversion from a string literal to "char *" is deprecated
   
 H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(46): warning : conversion from a string literal to "char *" is deprecated
   
   kernel.cu
-H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(69): warning C4018: '<': signed/unsigned mismatch
-H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(71): warning C4018: '<': signed/unsigned mismatch
-H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(84): warning C4018: '<': signed/unsigned mismatch
-H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(86): warning C4018: '<': signed/unsigned mismatch
+H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(64): warning C4018: '<': signed/unsigned mismatch
+H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(66): warning C4018: '<': signed/unsigned mismatch
+H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(79): warning C4018: '<': signed/unsigned mismatch
+H:/source/repos/lab1_image_rectification/lab1_image_rectification/kernel.cu(81): warning C4018: '<': signed/unsigned mismatch
   lab1_image_rectification.vcxproj -> H:\source\repos\lab1_image_rectification\lab1_image_rectification\x64\Debug\lab1_image_rectification.exe

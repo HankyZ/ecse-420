@@ -4,7 +4,7 @@
 #include "lodepng_process.h"
 #include <stdio.h>
 
-__global__ void process(unsigned char* image, unsigned char* new_image, unsigned* w, unsigned* h)
+__global__ void process(unsigned char* image, unsigned char* new_image, unsigned* w)
 {
 	int i = *w * 4 * blockIdx.x + 4 * threadIdx.x;
 
@@ -49,19 +49,14 @@ int main()
 
 	unsigned char* image, * shared_image, * new_image;
 	unsigned w, h;
-	unsigned* d_w, * d_h;
-
-	unsigned num_threads = 5;
-
+	unsigned* d_w;
 
 	error = lodepng_decode32_file(&image, &w, &h, input_filename);
 	if (error) printf("error %u: %s\n", error, lodepng_error_text(error));
 
 	cudaMalloc((void**)& d_w, sizeof(unsigned));
-	cudaMalloc((void**)& d_h, sizeof(unsigned));
 
 	cudaMemcpy(d_w, &w, sizeof(unsigned), cudaMemcpyHostToDevice);
-	cudaMemcpy(d_h, &h, sizeof(unsigned), cudaMemcpyHostToDevice);
 
 	cudaMallocManaged((void**)& shared_image, (unsigned long long)w * (unsigned long long)h * 4 * sizeof(unsigned char));
 	cudaMallocManaged((void**)& new_image, (unsigned long long)w * (unsigned long long)h * 4 * sizeof(unsigned char));
@@ -98,17 +93,13 @@ int main()
 		}
 	}
 
-	process << <h, w >> > (shared_image, new_image, d_w, d_h);
+	process << <h, w >> > (shared_image, new_image, d_w);
 
 	cudaDeviceSynchronize();
 
 	lodepng_encode32_file(output_filename, new_image, w, h);
 
-	if (compareArray(expected_new_image, new_image, 4 * w * h) == 0)
-		printf("same\n");
-
 	cudaFree(d_w);
-	cudaFree(d_h);
 	cudaFree(shared_image);
 	cudaFree(new_image);
 	free(image);
