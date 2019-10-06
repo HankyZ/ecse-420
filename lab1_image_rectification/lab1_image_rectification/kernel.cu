@@ -4,18 +4,19 @@
 #include "lodepng_process.h"
 #include <stdio.h>
 
-__global__ void process(unsigned char* image, unsigned char* new_image, unsigned* w)
+__global__ void process(unsigned char* image, unsigned char* new_image, unsigned size, unsigned num_threads)
 {
-	int i = *w * 4 * blockIdx.x + 4 * threadIdx.x;
-
-	for (int a = 0; a < 4; a++)
+	for (int i = blockIdx.x * num_threads + threadIdx.x; i < size; i += num_threads)
 	{
-		int p = i + a;
-		int value = image[p] - 127;
-		if (value < 0)
-			new_image[p] = 0;
-		else
-			new_image[p] = value + 127;
+		for (int a = 0; a < 4; a++)
+		{
+			i += a;
+			int value = image[i] - 127;
+			if (value < 0)
+				value = 0;
+
+			new_image[i] = value + 127;
+		}
 	}
 }
 
@@ -37,26 +38,25 @@ int compareArray(unsigned char* a, unsigned char* b, int size)
 			return -1;
 		}
 	}
+	printf("the two arrays are the same");
 	return 0;
 }
 
 int main()
 {
-	char* input_filename = "test1.png";
+	char* input_filename = "test.png";
 	char* output_filename = "new_image.png";
 
 	unsigned error;
 
 	unsigned char* image, * shared_image, * new_image;
 	unsigned w, h;
-	unsigned* d_w;
+
+	unsigned num_threads = 2048;
+	unsigned num_blocks = 1;
 
 	error = lodepng_decode32_file(&image, &w, &h, input_filename);
 	if (error) printf("error %u: %s\n", error, lodepng_error_text(error));
-
-	cudaMalloc((void**)& d_w, sizeof(unsigned));
-
-	cudaMemcpy(d_w, &w, sizeof(unsigned), cudaMemcpyHostToDevice);
 
 	cudaMallocManaged((void**)& shared_image, (unsigned long long)w * (unsigned long long)h * 4 * sizeof(unsigned char));
 	cudaMallocManaged((void**)& new_image, (unsigned long long)w * (unsigned long long)h * 4 * sizeof(unsigned char));
@@ -73,33 +73,33 @@ int main()
 		}
 	}
 
+	printf("w = %d, h = %d\n", w, h);
+
 	unsigned char* expected_new_image;
 	expected_new_image = (unsigned char*)malloc((unsigned long long)w * (unsigned long long)h * 4 * sizeof(unsigned char));
 
-	for (int i = 0; i < h; i++)
+	for (int i = 0; i < 4 * w * h; i++)
 	{
-		for (int j = 0; j < w; j++)
-		{
-			for (int a = 0; a < 4; a++)
-			{
-				int p = 4 * w * i + 4 * j + a;
-				int value = image[p] - 127;
+		int value = image[i] - 127;
 
-				if (value < 0)
-					expected_new_image[p] = 0;
-				else
-					expected_new_image[p] = value + 127;
-			}
-		}
+		if (value < 0)
+			value = 0;
+
+		expected_new_image[i] = value + 127;
 	}
 
-	process << <h, w >> > (shared_image, new_image, d_w);
+	if (num_threads > 1024)
+	{
+		num_blocks = 2;
+		num_threads = 1024;
+	}
+
+	process << <num_blocks, num_threads >> > (shared_image, new_image, w * h * 4, num_threads);
 
 	cudaDeviceSynchronize();
 
 	lodepng_encode32_file(output_filename, new_image, w, h);
 
-	cudaFree(d_w);
 	cudaFree(shared_image);
 	cudaFree(new_image);
 	free(image);
