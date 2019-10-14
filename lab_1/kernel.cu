@@ -2,6 +2,7 @@
 #include "device_launch_parameters.h"
 #include "lodepng.h"
 #include <stdio.h>
+#include <time.h>
 
 __global__ void rectify(unsigned char* image, unsigned char* new_image, unsigned size, unsigned num_threads)
 {
@@ -65,37 +66,12 @@ __global__ void pool(unsigned char* image, unsigned char* new_image, unsigned si
 		new_image[i + 1] = g_max;
 		new_image[i + 2] = b_max;
 		new_image[i + 3] = a_max;
-
-		/*if (y <= 1)
-			printf("i = %d, x = %d, y = %d, i0 = %d, i1 = %d, i2 = %d, i3 = %d. stored pixel value at %d, %d, %d, %d\n", i, x, y, i0, i1, i2, i3, i, i + 1, i + 2, i + 3);*/
 	}
-}
-
-void printArray(int* a, int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		printf("c[%d] = %d\n", i, a[i]);
-	}
-}
-
-int compareArray(unsigned char* a, unsigned char* b, int size)
-{
-	for (int i = 0; i < size; i++)
-	{
-		if (a[i] != b[i])
-		{
-			printf("a[%d] is %d, b[%d] is %d\n", i, a[i], i, b[i]);
-			return -1;
-		}
-	}
-	printf("the two arrays are the same");
-	return 0;
 }
 
 int main()
 {
-	char* input_filename = "test.png";
+	char* input_filename = "mango.png";
 	char* output_filename = "new_image.png";
 
 	unsigned error;
@@ -103,8 +79,12 @@ int main()
 	unsigned char* image, * shared_image, * new_image_rectify, * new_image_pooling;
 	unsigned w, h;
 
-	unsigned num_threads = 2048;
+	unsigned num_threads = 256;
 	unsigned num_blocks = 1;
+
+	double time_spent = 0.0;
+	clock_t begin = clock();
+
 
 	error = lodepng_decode32_file(&image, &w, &h, input_filename);
 	if (error) printf("error %u: %s\n", error, lodepng_error_text(error));
@@ -131,20 +111,24 @@ int main()
 		num_threads = 1024;
 	}
 
-	rectify << <num_blocks, num_threads >> > (shared_image, new_image_rectify, w * h * 4, num_threads);
-	//pool << < num_blocks, num_threads >> > (shared_image, new_image_pooling, w / 2 * h / 2 * 4, w, num_threads);
+	//rectify << <num_blocks, num_threads >> > (shared_image, new_image_rectify, w * h * 4, num_threads);
+	pool << < num_blocks, num_threads >> > (shared_image, new_image_pooling, w / 2 * h / 2 * 4, w, num_threads);
 
 	cudaDeviceSynchronize();
 
-	printf("w = %d, h = %d\n", w, h);
-
-	lodepng_encode32_file(output_filename, new_image_rectify, w, h);
-	//lodepng_encode32_file(output_filename, new_image_pooling, w / 2, h / 2);
+	//lodepng_encode32_file(output_filename, new_image_rectify, w, h);
+	lodepng_encode32_file(output_filename, new_image_pooling, w / 2, h / 2);
 
 	cudaFree(shared_image);
 	cudaFree(new_image_rectify);
 	cudaFree(new_image_pooling);
 	free(image);
+
+	clock_t end = clock();
+
+	time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+
+	printf("Execution time: %f\n", time_spent);
 
 	return 0;
 }

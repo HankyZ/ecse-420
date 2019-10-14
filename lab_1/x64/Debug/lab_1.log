@@ -1,15 +1,15 @@
 ﻿  Compiling CUDA source file kernel.cu...
   
   H:\source\repos\lab_1>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin\nvcc.exe" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\bin\HostX86\x64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "H:\source\repos\lab_1\kernel.cu" 
-H:/source/repos/lab_1/kernel.cu(98): warning : conversion from a string literal to "char *" is deprecated
+H:/source/repos/lab_1/kernel.cu(99): warning : conversion from a string literal to "char *" is deprecated
+  
+H:/source/repos/lab_1/kernel.cu(100): warning : conversion from a string literal to "char *" is deprecated
   
 H:/source/repos/lab_1/kernel.cu(99): warning : conversion from a string literal to "char *" is deprecated
   
-H:/source/repos/lab_1/kernel.cu(98): warning : conversion from a string literal to "char *" is deprecated
-  
-H:/source/repos/lab_1/kernel.cu(99): warning : conversion from a string literal to "char *" is deprecated
+H:/source/repos/lab_1/kernel.cu(100): warning : conversion from a string literal to "char *" is deprecated
   
   kernel.cu
-H:/source/repos/lab_1/kernel.cu(116): warning C4018: '<': signed/unsigned mismatch
-H:/source/repos/lab_1/kernel.cu(118): warning C4018: '<': signed/unsigned mismatch
+H:/source/repos/lab_1/kernel.cu(121): warning C4018: '<': signed/unsigned mismatch
+H:/source/repos/lab_1/kernel.cu(123): warning C4018: '<': signed/unsigned mismatch
   lab_1.vcxproj -> H:\source\repos\lab_1\x64\Debug\lab_1.exe
