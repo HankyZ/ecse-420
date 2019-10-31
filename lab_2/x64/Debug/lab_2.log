@@ -1,30 +1,19 @@
 ﻿  Compiling CUDA source file kernel.cu...
-  Compiling CUDA source file lodepng.cu...
   
   H:\source\repos\lab_2>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin\nvcc.exe" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\bin\HostX86\x64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "H:\source\repos\lab_2\kernel.cu" 
+H:/source/repos/lab_2/kernel.cu(67): warning : conversion from a string literal to "char *" is deprecated
   
-  H:\source\repos\lab_2>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin\nvcc.exe" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.22.27905\bin\HostX86\x64" -x cu  -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include" -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include"  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\lodepng.cu.obj "H:\source\repos\lab_2\lodepng.cu" 
-H:/source/repos/lab_2/kernel.cu(74): warning : conversion from a string literal to "char *" is deprecated
+H:/source/repos/lab_2/kernel.cu(107): warning : conversion from a string literal to "char *" is deprecated
   
-H:/source/repos/lab_2/kernel.cu(75): warning : conversion from a string literal to "char *" is deprecated
+H:/source/repos/lab_2/kernel.cu(111): warning : variable "shared_image" was declared but never referenced
   
-H:/source/repos/lab_2/kernel.cu(74): warning : conversion from a string literal to "char *" is deprecated
+H:/source/repos/lab_2/kernel.cu(67): warning : conversion from a string literal to "char *" is deprecated
   
-H:/source/repos/lab_2/kernel.cu(75): warning : conversion from a string literal to "char *" is deprecated
+H:/source/repos/lab_2/kernel.cu(107): warning : conversion from a string literal to "char *" is deprecated
   
   kernel.cu
-  lodepng.cu
-H:/source/repos/lab_2/kernel.cu(96): warning C4018: '<': signed/unsigned mismatch
-H:/source/repos/lab_2/kernel.cu(98): warning C4018: '<': signed/unsigned mismatch
-H:/source/repos/lab_2/lodepng.cu(773): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
-H:/source/repos/lab_2/lodepng.cu(1437): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-H:/source/repos/lab_2/lodepng.cu(1441): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-H:/source/repos/lab_2/lodepng.cu(1513): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-H:/source/repos/lab_2/lodepng.cu(3435): warning C4334: '<<': result of 32-bit shift implicitly converted to 64 bits (was 64-bit shift intended?)
-H:/source/repos/lab_2/lodepng.cu(3441): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-H:/source/repos/lab_2/lodepng.cu(4244): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-H:/source/repos/lab_2/lodepng.cu(4292): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-H:/source/repos/lab_2/lodepng.cu(4372): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
-H:/source/repos/lab_2/lodepng.cu(5312): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-     Creating library H:\source\repos\lab_2\x64\Debug\lab_2.lib and object H:\source\repos\lab_2\x64\Debug\lab_2.exp
+H:\source\repos\lab_2\wm.h(17): warning C4305: 'initializing': truncation from 'double' to 'float'
+H:/source/repos/lab_2/kernel.cu(76): warning C4018: '<': signed/unsigned mismatch
+H:/source/repos/lab_2/kernel.cu(78): warning C4018: '<': signed/unsigned mismatch
+H:/source/repos/lab_2/kernel.cu(111): warning C4101: 'shared_image': unreferenced local variable
   lab_2.vcxproj -> H:\source\repos\lab_2\x64\Debug\lab_2.exe
