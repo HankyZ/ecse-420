@@ -81,6 +81,10 @@
     <CudaCompile Include="lodepng.cu" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="A_10.h" />
+    <ClInclude Include="A_32.h" />
+    <ClInclude Include="b_10.h" />
+    <ClInclude Include="b_32.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="wm.h" />
   </ItemGroup>

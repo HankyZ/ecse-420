@@ -114,6 +114,10 @@ C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include\texture_types.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include\vector_functions.h
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include\vector_functions.hpp
 C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include\vector_types.h
+H:\source\repos\lab_2\A_10.h
+H:\source\repos\lab_2\A_32.h
+H:\source\repos\lab_2\B_10.h
+H:\source\repos\lab_2\B_32.h
 H:\source\repos\lab_2\kernel.cu
 H:\source\repos\lab_2\lodepng.h
 H:\source\repos\lab_2\wm.h
